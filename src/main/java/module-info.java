@@ -2,6 +2,7 @@ module co.edu.uniquindio.banco {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
+    requires java.desktop;
 
     opens co.edu.uniquindio.banco to javafx.fxml;
 
