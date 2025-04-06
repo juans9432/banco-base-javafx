@@ -96,6 +96,12 @@ public class LoginControlador {
     public void manejarBoton(ActionEvent e){
         iniciarSesion();
         irPanelUsuario();
+        limpiarCampos();
+    }
+
+    private void limpiarCampos(){
+        txtIdentificacion.clear();
+        txtContrasena.clear();
     }
 
 

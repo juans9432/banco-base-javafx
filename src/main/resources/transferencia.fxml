@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="co.edu.uniquindio.banco.controlador.TransferenciaControlador"
-      prefHeight="300.0" prefWidth="400.0" alignment="center" spacing="30.0" >
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
+<VBox alignment="center" prefHeight="300.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.banco.controlador.TransferenciaControlador">
+    <Label text="Realizar transferencia">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
 
+    <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+        <Label text="Número de cuenta:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtNumeroCuenta" GridPane.columnIndex="1" GridPane.rowIndex="0" minHeight="30.0" />
+
+        <Label text="Monto a transferir:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="txtMonto" GridPane.columnIndex="1" GridPane.rowIndex="1" minHeight="30.0" />
+
+        <Label text="Categoria:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ComboBox fx:id="txtCategoria"  minWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="2" minHeight="30.0" />
+
+    </GridPane>
+
+    <Button text="Transferir" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
 </VBox>
+

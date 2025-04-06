@@ -10,15 +10,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PanelClienteControlador implements Initializable {
@@ -42,6 +43,9 @@ public class PanelClienteControlador implements Initializable {
     private TableView<?> tablaTransacciones;
 
     private Banco banco;
+
+    @Setter
+    private Usuario usuarioActual;
 
 
     public PanelClienteControlador(){
@@ -84,17 +88,17 @@ public class PanelClienteControlador implements Initializable {
         }
     }
 
-    public void consultarSaldoBilletera(Usuario usuario) {
-        Optional<BilleteraVirtual> billetera = banco.getBilleteras().stream()
-                .filter(b -> b.getUsuario().equals(usuario))
-                .findFirst();
-
-        if (billetera.isPresent()) {
-            mostrarAlerta("Su saldo es: $" + billetera.get().consultarSaldo(), Alert.AlertType.INFORMATION);
-        } else {
-            mostrarAlerta("No se encontró una billetera.", Alert.AlertType.WARNING);
+    public void consultarSaldo(ActionEvent e) {
+        for (BilleteraVirtual billeteraVirtual : banco.getBilleteras()) {
+            if (billeteraVirtual.getUsuario().equals(usuarioActual)) {
+                mostrarAlerta("Su saldo actual es de: $" + billeteraVirtual.consultarSaldo(), Alert.AlertType.INFORMATION);
+                return; // Detenemos aquí, ya no necesitamos seguir buscando
+            }
         }
+
+        mostrarAlerta("No se encontró una billetera para el usuario.", Alert.AlertType.ERROR);
     }
+
 
 
     private void mostrarAlerta(String mensaje, Alert.AlertType tipo){
@@ -104,6 +108,13 @@ public class PanelClienteControlador implements Initializable {
         alert.setContentText(mensaje);
         alert.show();
     }
+
+    public void cerrarPanelCliente(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
 
 }
 

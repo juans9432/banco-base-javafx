@@ -1,9 +1,21 @@
 package co.edu.uniquindio.banco.controlador;
 
-/**
- * Clase que se encarga de controlar la creación de transferencias entre billeteras
- * @author caflorezvi
- */
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+
 public class TransferenciaControlador {
 
+    @FXML
+    private ComboBox<String> txtCategoria;
+
+    @FXML
+    private TextField txtMonto;
+
+    @FXML
+    private TextField txtNumeroCuenta;
+
+
+
 }
+
