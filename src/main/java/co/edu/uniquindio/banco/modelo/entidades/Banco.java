@@ -196,7 +196,7 @@ public class Banco {
         BilleteraVirtual billeteraOrigen = buscarBilletera(numeroBilleteraOrigen);
         BilleteraVirtual billeteraDestino = buscarBilletera(numeroBilleteraDestino);
 
-        if(billeteraOrigen == null || billeteraDestino == null){
+        if(billeteraDestino == null){
             throw new Exception("La billetera no existe");
         }
 

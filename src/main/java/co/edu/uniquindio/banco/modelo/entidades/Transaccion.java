@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Clase que representa una transacción bancaria
@@ -23,5 +24,4 @@ public class Transaccion {
     private Categoria tipo;
     private BilleteraVirtual billeteraOrigen, billeteraDestino;
     private float comision;
-
 }
