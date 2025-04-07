@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
@@ -29,7 +30,9 @@ public class LoginControlador {
     @FXML
     private PasswordField txtContrasena;
 
-    private Banco banco;
+    private final Banco banco;
+    @Setter
+    private Usuario usuarioActual;
 
     public LoginControlador(){
         this.banco = Banco.getInstancia(); // Usa el Singleton

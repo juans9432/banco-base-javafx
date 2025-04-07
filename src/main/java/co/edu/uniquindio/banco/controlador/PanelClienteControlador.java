@@ -42,7 +42,7 @@ public class PanelClienteControlador implements Initializable {
     @FXML
     private TableView<?> tablaTransacciones;
 
-    private Banco banco;
+    private final Banco banco;
 
     @Setter
     private Usuario usuarioActual;

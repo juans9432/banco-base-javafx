@@ -21,23 +21,23 @@ import java.util.UUID;
 @Setter
 public class Banco {
 
-    public static Banco INSTACIA;
+    private static Banco INSTANCIA;
 
-    private List<Usuario> usuarios;
-    private List<BilleteraVirtual> billeteras;
+    private final List<Usuario> usuarios;
+    private final List<BilleteraVirtual> billeteras;
 
     private Banco(){
         this.usuarios = new ArrayList<>();
         this.billeteras = new ArrayList<>();
     }
 
-    public static Banco getInstancia(){
-        if(INSTACIA == null){
-            INSTACIA = new Banco();
+    // Método getInstancia sincronizado para thread-safety
+    public static synchronized Banco getInstancia() {
+        if (INSTANCIA == null) {
+            INSTANCIA = new Banco();
         }
-        return INSTACIA;
+        return INSTANCIA;
     }
-
     /**
      * Permite registrar un usuario en el banco y crear su billetera
      * @param id identificación del usuario
