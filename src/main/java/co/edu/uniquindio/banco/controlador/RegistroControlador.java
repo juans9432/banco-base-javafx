@@ -31,7 +31,7 @@ public class RegistroControlador {
      * Constructor de la clase, inicializa el banco
      */
     public RegistroControlador(){
-        banco = new Banco();
+        this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
     /**

@@ -21,12 +21,21 @@ import java.util.UUID;
 @Setter
 public class Banco {
 
+    public static Banco INSTACIA;
+
     private List<Usuario> usuarios;
     private List<BilleteraVirtual> billeteras;
 
-    public Banco(){
+    private Banco(){
         this.usuarios = new ArrayList<>();
         this.billeteras = new ArrayList<>();
+    }
+
+    public static Banco getInstancia(){
+        if(INSTACIA == null){
+            INSTACIA = new Banco();
+        }
+        return INSTACIA;
     }
 
     /**

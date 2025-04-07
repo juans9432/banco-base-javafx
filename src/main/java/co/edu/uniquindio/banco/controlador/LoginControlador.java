@@ -32,7 +32,7 @@ public class LoginControlador {
     private Banco banco;
 
     public LoginControlador(){
-        banco = new Banco();
+        this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
     private void iniciarSesion(){

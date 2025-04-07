@@ -49,7 +49,7 @@ public class PanelClienteControlador implements Initializable {
 
 
     public PanelClienteControlador(){
-        banco = new Banco();
+        this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
     @Override
