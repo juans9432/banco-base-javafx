@@ -6,6 +6,7 @@ import co.edu.uniquindio.banco.modelo.entidades.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -54,7 +55,7 @@ public class LoginControlador {
             sesion.setUsuario(usuarioEncontrado);
 
             irPanelUsuario();
-            limpiarCampos();
+            cerrarVentana(new Stage());
         } else {
             mostrarAlerta("Error", "numero de identificacion o contraseña incorrectos", Alert.AlertType.ERROR);
         }
@@ -79,6 +80,7 @@ public class LoginControlador {
 
     public void irPanelUsuario() {
         navegarVentana("/panelCliente.fxml", "Banco - Panel Cliente");
+
     }
 
     public void navegarVentana(String nombreArchivoFxml, String tituloVentana) {
@@ -87,6 +89,9 @@ public class LoginControlador {
             // Cargar la vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
             Parent root = loader.load();
+
+            PanelClienteControlador controlador = loader.getController();
+            controlador.inicializarDatos();
 
             // Crear la escena
             Scene scene = new Scene(root);
@@ -109,6 +114,10 @@ public class LoginControlador {
     private void limpiarCampos(){
         txtIdentificacion.clear();
         txtContrasena.clear();
+    }
+
+    public void cerrarVentana(Stage stage) {
+        stage.close();
     }
 
 

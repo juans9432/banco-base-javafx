@@ -28,16 +28,16 @@ public class TransferenciaControlador implements Initializable {
 
     private final Sesion sesion = Sesion.getInstancia();
 
-    private BilleteraVirtual billeteraActual;
-
 
     public TransferenciaControlador() {
     }
 
 
     public void transferir(ActionEvent e) {
+        Usuario usuario = sesion.getUsuario();
+        BilleteraVirtual billetera = banco.buscarBilleteraUsuario(usuario.getId());
         try {
-            String origen = billeteraActual.getNumero();
+            String origen = billetera.getNumero();
             String destino = txtNumeroCuenta.getText();
             float monto = Float.parseFloat(txtMonto.getText());
             Categoria categoria = txtCategoria.getValue();
@@ -48,9 +48,6 @@ public class TransferenciaControlador implements Initializable {
         }
     }
 
-    public void setBilleteraActual(BilleteraVirtual billeteraActual) {
-        this.billeteraActual = billeteraActual;
-    }
 
     private void mostrarAlerta(String mensaje, Alert.AlertType tipo){
         Alert alert = new Alert(tipo);

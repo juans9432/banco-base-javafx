@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -40,6 +41,12 @@ public class PanelClienteControlador implements Initializable {
     @FXML
     private TableView<?> tablaTransacciones;
 
+    @FXML
+    private Label lblBienvenida;
+
+    @FXML
+    private Label lblNumeroCuenta;
+
     private final Banco banco = Banco.getInstancia();
 
     private final Sesion sesion = Sesion.getInstancia();
@@ -67,13 +74,6 @@ public class PanelClienteControlador implements Initializable {
             // Cargar la vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
             Parent root = loader.load();
-
-            Object controlador = loader.getController();
-
-            // Si es el controlador de transferencia, pasarle la billetera
-            if (controlador instanceof TransferenciaControlador transferenciaControlador) {
-                transferenciaControlador.setBilleteraActual(billeteraActual);
-            }
 
             // Crear la escena
             Scene scene = new Scene(root);
@@ -119,6 +119,20 @@ public class PanelClienteControlador implements Initializable {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    public void inicializarDatos() {
+        Usuario usuario = sesion.getUsuario();
+
+        lblBienvenida.setText(usuario.getNombre() + ", bienvenido a su banco. Aquí podrá ver sus transacciones.");
+
+        BilleteraVirtual billetera = banco.buscarBilleteraUsuario(usuario.getId());
+
+        if (billetera != null) {
+            lblNumeroCuenta.setText("Nro. Cuenta: " + billetera.getNumero());
+        } else {
+            lblNumeroCuenta.setText("No se encontró billetera para este usuario.");
+        }
     }
 
 
