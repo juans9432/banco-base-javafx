@@ -23,6 +23,6 @@
         <PasswordField fx:id="txtContrasena" GridPane.columnIndex="1" GridPane.rowIndex="1" minHeight="30.0" />
     </GridPane>
 
-    <Button text="Iniciar Sesion" onAction="#manejarBoton" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
+    <Button text="Iniciar Sesion" onAction="#iniciarSesion" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
 
 </VBox>

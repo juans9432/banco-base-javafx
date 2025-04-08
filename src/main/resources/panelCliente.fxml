@@ -15,7 +15,8 @@
             <Font size="18.0" />
         </font>
     </Label>
-   <Label prefHeight="17.0" prefWidth="339.0" text="Carlos bienvenido a su banco, aqui podra ver sus transacciones " />
+   <Label prefHeight="17.0" prefWidth="339.0" text= " bienvenido a su banco, aqui podra ver sus transacciones " />
+    <Label prefHeight="17.0" prefWidth="339.0" text="Nro. De cuenta: "/>
 
 
     <TableView fx:id="tablaTransacciones" layoutX="430.0" layoutY="30.0" prefHeight="310.0" prefWidth="540.0">
@@ -31,7 +32,7 @@
     </TableView>
 
     <HBox alignment="BOTTOM_LEFT" spacing="20.0">
-        <Button minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" text="Cerrar sesión" onAction="#cerrarPanelCliente" />
+        <Button minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" text="Cerrar sesión" onAction="#cerrarSesion" />
         <Button minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" text="Consultar" onAction="#consultarSaldo" />
         <Button minHeight="40.0" minWidth="130.0" onAction="#irPanelTransferencia" style="-fx-background-color: #00807a; -fx-text-fill: white" text="Transferir" />
     </HBox>

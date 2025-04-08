@@ -1,6 +1,7 @@
 package co.edu.uniquindio.banco.controlador;
 
 import co.edu.uniquindio.banco.modelo.entidades.Banco;
+import co.edu.uniquindio.banco.modelo.entidades.Sesion;
 import co.edu.uniquindio.banco.modelo.entidades.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,21 +32,29 @@ public class LoginControlador {
     private PasswordField txtContrasena;
 
     private final Banco banco;
-    @Setter
-    private Usuario usuarioActual;
+
+    private final Sesion sesion = Sesion.getInstancia();
+
+
 
     public LoginControlador(){
         this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
-    private void iniciarSesion(){
+    public void iniciarSesion(ActionEvent e){
         String id= txtIdentificacion.getText();
         String contraseña= txtContrasena.getText();
 
         Usuario usuarioEncontrado = buscarUsuario(id, contraseña);
 
-        if(usuarioEncontrado == null){
+        if(usuarioEncontrado != null){
             mostrarAlerta("Éxito", "inicio de sesión exitoso", Alert.AlertType.INFORMATION);
+
+            Sesion sesion = Sesion.getInstancia();
+            sesion.setUsuario(usuarioEncontrado);
+
+            irPanelUsuario();
+            limpiarCampos();
         } else {
             mostrarAlerta("Error", "numero de identificacion o contraseña incorrectos", Alert.AlertType.ERROR);
         }
@@ -96,11 +105,6 @@ public class LoginControlador {
         }
     }
 
-    public void manejarBoton(ActionEvent e){
-        iniciarSesion();
-        irPanelUsuario();
-        limpiarCampos();
-    }
 
     private void limpiarCampos(){
         txtIdentificacion.clear();

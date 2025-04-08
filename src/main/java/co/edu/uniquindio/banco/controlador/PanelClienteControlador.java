@@ -1,10 +1,7 @@
 package co.edu.uniquindio.banco.controlador;
 
 
-import co.edu.uniquindio.banco.modelo.entidades.Banco;
-import co.edu.uniquindio.banco.modelo.entidades.BilleteraVirtual;
-import co.edu.uniquindio.banco.modelo.entidades.Transaccion;
-import co.edu.uniquindio.banco.modelo.entidades.Usuario;
+import co.edu.uniquindio.banco.modelo.entidades.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +17,7 @@ import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PanelClienteControlador implements Initializable {
@@ -42,14 +40,13 @@ public class PanelClienteControlador implements Initializable {
     @FXML
     private TableView<?> tablaTransacciones;
 
-    private final Banco banco;
+    private final Banco banco = Banco.getInstancia();
 
-    @Setter
-    private Usuario usuarioActual;
+    private final Sesion sesion = Sesion.getInstancia();
+
 
 
     public PanelClienteControlador(){
-        this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
     @Override
@@ -71,6 +68,13 @@ public class PanelClienteControlador implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
             Parent root = loader.load();
 
+            Object controlador = loader.getController();
+
+            // Si es el controlador de transferencia, pasarle la billetera
+            if (controlador instanceof TransferenciaControlador transferenciaControlador) {
+                transferenciaControlador.setBilleteraActual(billeteraActual);
+            }
+
             // Crear la escena
             Scene scene = new Scene(root);
 
@@ -89,14 +93,15 @@ public class PanelClienteControlador implements Initializable {
     }
 
     public void consultarSaldo(ActionEvent e) {
-        for (BilleteraVirtual billeteraVirtual : banco.getBilleteras()) {
-            if (billeteraVirtual.getUsuario().equals(usuarioActual)) {
-                mostrarAlerta("Su saldo actual es de: $" + billeteraVirtual.consultarSaldo(), Alert.AlertType.INFORMATION);
-                return; // Detenemos aquí, ya no necesitamos seguir buscando
+        Usuario usuario = sesion.getUsuario();
+        for(BilleteraVirtual billetera : banco.getBilleteras()) {
+            if(billetera.getUsuario().equals(usuario)){
+                double saldo = billetera.consultarSaldo();
+                mostrarAlerta("su saldo actual es: $"+ saldo, Alert.AlertType.INFORMATION);
+                return;
             }
         }
-
-        mostrarAlerta("No se encontró una billetera para el usuario.", Alert.AlertType.ERROR);
+        mostrarAlerta("No se encontró una billetera asociada al usuario.", Alert.AlertType.ERROR);
     }
 
 
@@ -109,7 +114,8 @@ public class PanelClienteControlador implements Initializable {
         alert.show();
     }
 
-    public void cerrarPanelCliente(ActionEvent event) {
+    public void cerrarSesion(ActionEvent event) {
+        sesion.cerrarSesion();
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

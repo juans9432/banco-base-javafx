@@ -1,9 +1,6 @@
 package co.edu.uniquindio.banco.controlador;
 
-import co.edu.uniquindio.banco.modelo.entidades.Banco;
-import co.edu.uniquindio.banco.modelo.entidades.BilleteraVirtual;
-import co.edu.uniquindio.banco.modelo.entidades.Transaccion;
-import co.edu.uniquindio.banco.modelo.entidades.Usuario;
+import co.edu.uniquindio.banco.modelo.entidades.*;
 import co.edu.uniquindio.banco.modelo.enums.Categoria;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,11 +24,15 @@ public class TransferenciaControlador implements Initializable {
     @FXML
     private TextField txtNumeroCuenta;
 
-    private Banco banco;
+    private final Banco banco = Banco.getInstancia();
+
+    private final Sesion sesion = Sesion.getInstancia();
 
     private BilleteraVirtual billeteraActual;
 
-    private Usuario usuario;
+
+    public TransferenciaControlador() {
+    }
 
 
     public void transferir(ActionEvent e) {
@@ -45,6 +46,10 @@ public class TransferenciaControlador implements Initializable {
         } catch (Exception ex) {
             mostrarAlerta("Error: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    public void setBilleteraActual(BilleteraVirtual billeteraActual) {
+        this.billeteraActual = billeteraActual;
     }
 
     private void mostrarAlerta(String mensaje, Alert.AlertType tipo){
