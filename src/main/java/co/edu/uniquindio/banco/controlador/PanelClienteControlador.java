@@ -3,6 +3,8 @@ package co.edu.uniquindio.banco.controlador;
 
 import co.edu.uniquindio.banco.modelo.entidades.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +41,7 @@ public class PanelClienteControlador implements Initializable {
     private TableColumn<Transaccion, String> colValor;
 
     @FXML
-    private TableView<?> tablaTransacciones;
+    private TableView<Transaccion> tablaTransacciones;
 
     @FXML
     private Label lblBienvenida;
@@ -51,6 +53,8 @@ public class PanelClienteControlador implements Initializable {
 
     private final Sesion sesion = Sesion.getInstancia();
 
+    private ObservableList<Transaccion> transaccionObservableList;
+
 
 
     public PanelClienteControlador(){
@@ -60,8 +64,17 @@ public class PanelClienteControlador implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo().toString()));
         colValor.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getMonto())));
-        colUusario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBilleteraDestino().getUsuario().toString()));
+        colUusario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBilleteraDestino().getUsuario().getNombre()));
         colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha().toString()));
+
+        transaccionObservableList = FXCollections.observableArrayList();
+        cargarTransacciones();
+    }
+
+    private void cargarTransacciones() {
+        BilleteraVirtual billetera = banco.buscarBilleteraUsuario(sesion.getUsuario().getId());
+        transaccionObservableList.setAll(billetera.obtenerTransacciones());
+        tablaTransacciones.setItems(transaccionObservableList);
     }
 
     public void irPanelTransferencia() {
@@ -124,7 +137,7 @@ public class PanelClienteControlador implements Initializable {
     public void inicializarDatos() {
         Usuario usuario = sesion.getUsuario();
 
-        lblBienvenida.setText(usuario.getNombre() + ", bienvenido a su banco. Aquí podrá ver sus transacciones.");
+        lblBienvenida.setText(usuario.getNombre() + " bienvenido a su banco. Aquí podrá ver sus transacciones.");
 
         BilleteraVirtual billetera = banco.buscarBilleteraUsuario(usuario.getId());
 
@@ -134,6 +147,31 @@ public class PanelClienteControlador implements Initializable {
             lblNumeroCuenta.setText("No se encontró billetera para este usuario.");
         }
     }
+
+    /**
+    public void editarNota(ActionEvent e) {
+
+        if(sesion.getUsuario() != null) {
+            try {
+                banco.actualizar(
+                        notaSeleccionada.getId(),
+                        txtTitulo.getText(),
+                        txtNota.getText(),
+                        txtCategoria.getValue(),
+                        txtRecordatorio.getValue()
+                );
+
+                limpiarCampos();
+                actualizarNotas();
+                mostrarAlerta("Nota actualizada correctamente", Alert.AlertType.INFORMATION);
+            } catch (Exception ex) {
+                mostrarAlerta(ex.getMessage(), Alert.AlertType.ERROR);
+            }
+        }else{
+            mostrarAlerta("Debe seleccionar una nota de la tabla", Alert.AlertType.WARNING);
+        }
+    }
+     */
 
 
 }

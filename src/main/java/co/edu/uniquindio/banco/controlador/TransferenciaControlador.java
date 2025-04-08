@@ -6,9 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +44,15 @@ public class TransferenciaControlador implements Initializable {
             float monto = Float.parseFloat(txtMonto.getText());
             Categoria categoria = txtCategoria.getValue();
 
-            banco.realizarTransferencia(origen, destino, monto, categoria);
+            if (categoria == Categoria.RECARGA) {
+                banco.recargarBilletera(origen, monto);
+            } else {
+                banco.realizarTransferencia(origen, destino, monto, categoria);
+            }
+
+            mostrarAlerta("transaccion realizada con exito", Alert.AlertType.INFORMATION);
+            cerrarVentana();
+
         } catch (Exception ex) {
             mostrarAlerta("Error: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
@@ -60,6 +70,11 @@ public class TransferenciaControlador implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         txtCategoria.getItems().addAll(Categoria.values());
+    }
+
+    public void cerrarVentana(){
+        Stage stage = (Stage) txtMonto.getScene().getWindow();
+        stage.close();
     }
 }
 

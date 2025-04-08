@@ -1,6 +1,7 @@
 package co.edu.uniquindio.banco.modelo.entidades;
 
 import co.edu.uniquindio.banco.modelo.enums.Categoria;
+import co.edu.uniquindio.banco.modelo.enums.TipoTransaccion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

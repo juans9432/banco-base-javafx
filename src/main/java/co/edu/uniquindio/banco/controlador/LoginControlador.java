@@ -55,7 +55,7 @@ public class LoginControlador {
             sesion.setUsuario(usuarioEncontrado);
 
             irPanelUsuario();
-            cerrarVentana(new Stage());
+            cerrarVentana();
         } else {
             mostrarAlerta("Error", "numero de identificacion o contraseña incorrectos", Alert.AlertType.ERROR);
         }
@@ -116,7 +116,8 @@ public class LoginControlador {
         txtContrasena.clear();
     }
 
-    public void cerrarVentana(Stage stage) {
+    public void cerrarVentana(){
+        Stage stage = (Stage) txtIdentificacion.getScene().getWindow();
         stage.close();
     }
 

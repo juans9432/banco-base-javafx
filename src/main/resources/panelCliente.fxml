@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Region?>
+
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="co.edu.uniquindio.banco.controlador.PanelClienteControlador"
@@ -25,12 +25,21 @@
         </font>
     </Label>
 
-    <GridPane hgap="10" vgap="10">
-        <Label fx:id="lblBienvenida" text="bienvenido a su banco, aquí podrá ver sus transacciones" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <Label fx:id="lblNumeroCuenta" text="Nro. Cuenta: 9067571744" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-    </GridPane>
+    <HBox spacing="10.0" alignment="CENTER_LEFT">
+        <Label fx:id="lblBienvenida" text=" bienvenido a su banco. Aquí podrá ver sus transacciones.">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblNumeroCuenta" text="Nro. Cuenta: ">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+    </HBox>
 
-    <TableView fx:id="tablaTransacciones" layoutX="430.0" layoutY="30.0" prefHeight="310.0" prefWidth="540.0">
+    <TableView fx:id="tablaTransacciones" layoutX="430.0" layoutY="30.0" prefHeight="380.0" prefWidth="540.0">
         <columns>
             <TableColumn fx:id="colTipo" prefWidth="${tablaTransacciones.width*0.2}" text="Tipo" />
             <TableColumn fx:id="colFecha" prefWidth="${tablaTransacciones.width*0.2}" text="Fecha" />
@@ -44,11 +53,11 @@
     </TableView>
 
 
-    <HBox spacing="20" alignment="CENTER">
+    <HBox spacing="20" alignment="BOTTOM_LEFT">
         <Button text="Cerrar sesión" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#cerrarSesion"/>
         <Button text="Consultar" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#consultarSaldo"/>
         <Button text="Transferir" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#irPanelTransferencia"/>
-        <Button text="Editar Usuario" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #FFFF00" onAction="#irPanelTransferencia"/>
+        <Button text="Editar Usuario" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #FFFF00" />
     </HBox>
 
 </VBox>
