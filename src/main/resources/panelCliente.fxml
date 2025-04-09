@@ -58,7 +58,7 @@
         <Button text="Consultar" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#consultarSaldo"/>
         <Button text="Transferir" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#irPanelTransferencia"/>
         <Button text="Recargar" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#irPanelRecarga"/>
-        <Button text="Editar Usuario" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #FFD700" />
+        <Button text="Editar Usuario" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #FFD700" onAction="#irPanelEditar" />
     </HBox>
 
 </VBox>

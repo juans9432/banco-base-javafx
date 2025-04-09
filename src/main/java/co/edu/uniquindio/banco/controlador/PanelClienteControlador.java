@@ -99,6 +99,11 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         controlador.setInterfazActualizacion(this);
     }
 
+    public void irPanelEditar() {
+        navegarVentana("/editarDatos.fxml", "Banco - Editar datos");
+
+    }
+
     /**
      * metodo para navegar entre ventanas
      * @param nombreArchivoFxml
