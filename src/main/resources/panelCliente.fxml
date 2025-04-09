@@ -53,10 +53,11 @@
     </TableView>
 
 
-    <HBox spacing="20" alignment="BOTTOM_LEFT">
+    <HBox spacing="20" alignment="BOTTOM_CENTER">
         <Button text="Cerrar sesión" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#cerrarSesion"/>
         <Button text="Consultar" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#consultarSaldo"/>
         <Button text="Transferir" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#irPanelTransferencia"/>
+        <Button text="Recargar" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #00807a; -fx-text-fill: white;" onAction="#irPanelRecarga"/>
         <Button text="Editar Usuario" minWidth="130.0" minHeight="40.0" style="-fx-background-color: #FFFF00" />
     </HBox>
 

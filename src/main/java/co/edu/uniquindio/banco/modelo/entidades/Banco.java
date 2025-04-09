@@ -29,6 +29,21 @@ public class Banco {
     private Banco() {
         this.usuarios = new ArrayList<>();
         this.billeteras = new ArrayList<>();
+
+        crearDatosPrueba();
+
+    }
+
+    public void crearDatosPrueba() {
+        try {
+            registrarUsuario("1234", "Usuario1", "abc", "usuario1", "1234");
+            registrarUsuario("5678", "Usuario2", "abc", "usuario2", "5678");
+
+            System.out.println( billeteras );
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     // Método getInstancia sincronizado para thread-safety
@@ -89,7 +104,7 @@ public class Banco {
      */
     public void registrarBilletera(Usuario usuario) {
         String numero = crearNumeroBilletera();
-        BilleteraVirtual billetera = new BilleteraVirtual(numero, 0, usuario);
+        BilleteraVirtual billetera = new BilleteraVirtual(numero, 10000, usuario);
         billeteras.add(billetera);
     }
 

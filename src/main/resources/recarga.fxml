@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.banco.controlador.RecargaControlador"
+      alignment="center" prefHeight="300.0" prefWidth="400.0" spacing="30.0">
+
+    <Label text="Recargar billetera">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+
+    <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+        <Label text="Monto a recargar:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtMonto" GridPane.columnIndex="1" GridPane.rowIndex="0" minHeight="30.0" />
+    </GridPane>
+
+    <Button text="Recargar"  onAction="#recargarBilletera" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
+
+</VBox>

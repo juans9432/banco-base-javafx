@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class PanelClienteControlador implements Initializable {
+public class PanelClienteControlador implements Initializable, IActualizacion {
 
     @FXML
     private TableColumn<Transaccion, String> colCategoria;
@@ -78,10 +78,13 @@ public class PanelClienteControlador implements Initializable {
     }
 
     public void irPanelTransferencia() {
-        navegarVentana("/Transferencia.fxml", "Banco - Transferencia");
+        FXMLLoader loader = navegarVentana("/Transferencia.fxml", "Banco - Transferencia");
+        TransferenciaControlador controlador = loader.getController();
+        controlador.setInterfazActualizacion(this);
+
     }
 
-    public void navegarVentana(String nombreArchivoFxml, String tituloVentana) {
+    public FXMLLoader navegarVentana(String nombreArchivoFxml, String tituloVentana) {
         try {
 
             // Cargar la vista
@@ -100,9 +103,13 @@ public class PanelClienteControlador implements Initializable {
             // Mostrar la nueva ventana
             stage.show();
 
+            return loader;
+
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        return null;
     }
 
     public void consultarSaldo(ActionEvent e) {
@@ -148,6 +155,16 @@ public class PanelClienteControlador implements Initializable {
         }
     }
 
+    @Override
+    public void actualizarTabla() {
+        cargarTransacciones();
+    }
+
+    public void irPanelRecarga(ActionEvent e) {
+        navegarVentana("/recarga.fxml", "Banco - Recargar billetera");
+
+    }
+
     /**
     public void editarNota(ActionEvent e) {
 
@@ -172,7 +189,6 @@ public class PanelClienteControlador implements Initializable {
         }
     }
      */
-
 
 }
 

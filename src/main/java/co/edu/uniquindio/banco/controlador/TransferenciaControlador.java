@@ -26,6 +26,8 @@ public class TransferenciaControlador implements Initializable {
     @FXML
     private TextField txtNumeroCuenta;
 
+    private IActualizacion iActualizacion;
+
     private final Banco banco = Banco.getInstancia();
 
     private final Sesion sesion = Sesion.getInstancia();
@@ -34,6 +36,9 @@ public class TransferenciaControlador implements Initializable {
     public TransferenciaControlador() {
     }
 
+    public void setInterfazActualizacion(IActualizacion iActualizacion){
+        this.iActualizacion = iActualizacion;
+    }
 
     public void transferir(ActionEvent e) {
         Usuario usuario = sesion.getUsuario();
@@ -44,12 +49,8 @@ public class TransferenciaControlador implements Initializable {
             float monto = Float.parseFloat(txtMonto.getText());
             Categoria categoria = txtCategoria.getValue();
 
-            if (categoria == Categoria.RECARGA) {
-                banco.recargarBilletera(origen, monto);
-            } else {
-                banco.realizarTransferencia(origen, destino, monto, categoria);
-            }
-
+            banco.realizarTransferencia(origen, destino, monto, categoria);
+            iActualizacion.actualizarTabla();
             mostrarAlerta("transaccion realizada con exito", Alert.AlertType.INFORMATION);
             cerrarVentana();
 

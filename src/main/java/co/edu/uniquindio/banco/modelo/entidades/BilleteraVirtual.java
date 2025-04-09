@@ -100,4 +100,12 @@ public class BilleteraVirtual {
         return usuario;
     }
 
+    @Override
+    public String toString() {
+        return "BilleteraVirtual{" +
+                "numero='" + numero + '\'' +
+                ", saldo=" + saldo +
+                ", usuario=" + usuario.getNombre() +
+                '}';
+    }
 }
