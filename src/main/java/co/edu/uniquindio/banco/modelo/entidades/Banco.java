@@ -2,6 +2,7 @@ package co.edu.uniquindio.banco.modelo.entidades;
 
 import co.edu.uniquindio.banco.config.Constantes;
 import co.edu.uniquindio.banco.modelo.enums.Categoria;
+import co.edu.uniquindio.banco.modelo.enums.TipoTransaccion;
 import co.edu.uniquindio.banco.modelo.vo.PorcentajeGastosIngresos;
 import co.edu.uniquindio.banco.modelo.vo.SaldoTransaccionesBilletera;
 import lombok.Getter;
@@ -104,7 +105,7 @@ public class Banco {
      */
     public void registrarBilletera(Usuario usuario) {
         String numero = crearNumeroBilletera();
-        BilleteraVirtual billetera = new BilleteraVirtual(numero, 10000, usuario);
+        BilleteraVirtual billetera = new BilleteraVirtual(numero, 0, usuario);
         billeteras.add(billetera);
     }
 
@@ -217,6 +218,7 @@ public class Banco {
                 UUID.randomUUID().toString(),
                 monto,
                 LocalDateTime.now(),
+                TipoTransaccion.DEPOSITO,
                 Categoria.RECARGA,
                 billetera,
                 billetera,
@@ -238,18 +240,30 @@ public class Banco {
             throw new Exception("Saldo insuficiente");
         }
 
-        Transaccion transaccion = new Transaccion(
+        Transaccion transaccionRetiro = new Transaccion(
                 UUID.randomUUID().toString(),
                 monto,
                 LocalDateTime.now(),
+                TipoTransaccion.RETIRO,
                 categoria,
                 billeteraOrigen,
                 billeteraDestino,
                 Constantes.COMISION
         );
 
-        billeteraOrigen.retirar(monto, transaccion);
-        billeteraDestino.depositar(monto, transaccion);
+        Transaccion transaccionDeposito = new Transaccion(
+                UUID.randomUUID().toString(),
+                monto,
+                LocalDateTime.now(),
+                TipoTransaccion.DEPOSITO,
+                categoria,
+                billeteraOrigen,
+                billeteraDestino,
+                0 // La comisión solo aplica al retiro
+        );
+
+        billeteraOrigen.retirar(monto, transaccionRetiro);
+        billeteraDestino.depositar(monto, transaccionDeposito);
 
     }
 

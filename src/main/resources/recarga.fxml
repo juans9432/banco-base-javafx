@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -23,6 +19,10 @@
         <TextField fx:id="txtMonto" GridPane.columnIndex="1" GridPane.rowIndex="0" minHeight="30.0" />
     </GridPane>
 
-    <Button text="Recargar"  onAction="#recargarBilletera" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
+    <HBox spacing="20" alignment="BOTTOM_CENTER">
+        <Button text="Recargar"  onAction="#recargarBilletera" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
+        <Button text="Cancelar"  onAction="#cerrarVentana" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #FF0000; -fx-text-fill: white" />
+    </HBox>
+
 
 </VBox>

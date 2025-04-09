@@ -40,6 +40,10 @@ public class TransferenciaControlador implements Initializable {
         this.iActualizacion = iActualizacion;
     }
 
+    /**
+     * metodo para realizar una transferencia
+     * @param e
+     */
     public void transferir(ActionEvent e) {
         Usuario usuario = sesion.getUsuario();
         BilleteraVirtual billetera = banco.buscarBilleteraUsuario(usuario.getId());
@@ -59,7 +63,11 @@ public class TransferenciaControlador implements Initializable {
         }
     }
 
-
+    /**
+     * metodo para mostrar una alerta
+     * @param mensaje
+     * @param tipo
+     */
     private void mostrarAlerta(String mensaje, Alert.AlertType tipo){
         Alert alert = new Alert(tipo);
         alert.setTitle("Información");
@@ -73,6 +81,9 @@ public class TransferenciaControlador implements Initializable {
         txtCategoria.getItems().addAll(Categoria.values());
     }
 
+    /**
+     * metodo para cerrar la ventana
+     */
     public void cerrarVentana(){
         Stage stage = (Stage) txtMonto.getScene().getWindow();
         stage.close();

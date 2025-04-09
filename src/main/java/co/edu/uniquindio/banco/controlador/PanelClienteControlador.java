@@ -35,7 +35,7 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
     private TableColumn<Transaccion, String> colTipo;
 
     @FXML
-    private TableColumn<Transaccion, String> colUusario;
+    private TableColumn<Transaccion, String> colUsuario;
 
     @FXML
     private TableColumn<Transaccion, String> colValor;
@@ -56,27 +56,32 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
     private ObservableList<Transaccion> transaccionObservableList;
 
 
-
-    public PanelClienteControlador(){
-    }
+    public PanelClienteControlador(){}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo().toString()));
         colValor.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getMonto())));
-        colUusario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBilleteraDestino().getUsuario().getNombre()));
+        colUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBilleteraDestino().getUsuario().getNombre()));
         colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha().toString()));
+        colCategoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategoria().toString()));
 
         transaccionObservableList = FXCollections.observableArrayList();
         cargarTransacciones();
     }
 
+    /**
+     * metodo para cargar las transacciones
+     */
     private void cargarTransacciones() {
         BilleteraVirtual billetera = banco.buscarBilleteraUsuario(sesion.getUsuario().getId());
         transaccionObservableList.setAll(billetera.obtenerTransacciones());
         tablaTransacciones.setItems(transaccionObservableList);
     }
 
+    /**
+     * metodo para ir al panel de transferencia
+     */
     public void irPanelTransferencia() {
         FXMLLoader loader = navegarVentana("/Transferencia.fxml", "Banco - Transferencia");
         TransferenciaControlador controlador = loader.getController();
@@ -84,6 +89,22 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
 
     }
 
+    /**
+     * metodo para ir al panel de recarga
+     * @param e
+     */
+    public void irPanelRecarga(ActionEvent e) {
+        FXMLLoader loader = navegarVentana("/recarga.fxml", "Banco - Recarga");
+        RecargaControlador controlador = loader.getController();
+        controlador.setInterfazActualizacion(this);
+    }
+
+    /**
+     * metodo para navegar entre ventanas
+     * @param nombreArchivoFxml
+     * @param tituloVentana
+     * @return
+     */
     public FXMLLoader navegarVentana(String nombreArchivoFxml, String tituloVentana) {
         try {
 
@@ -112,6 +133,10 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         return null;
     }
 
+    /**
+     * metodo para consultar el saldo de la billetera
+     * @param e
+     */
     public void consultarSaldo(ActionEvent e) {
         Usuario usuario = sesion.getUsuario();
         for(BilleteraVirtual billetera : banco.getBilleteras()) {
@@ -124,8 +149,11 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         mostrarAlerta("No se encontró una billetera asociada al usuario.", Alert.AlertType.ERROR);
     }
 
-
-
+    /**
+     * metodo para mostrar una alerta
+     * @param mensaje
+     * @param tipo
+     */
     private void mostrarAlerta(String mensaje, Alert.AlertType tipo){
         Alert alert = new Alert(tipo);
         alert.setTitle("Información");
@@ -134,6 +162,10 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         alert.show();
     }
 
+    /**
+     * metodo para cerrar sesion
+     * @param event
+     */
     public void cerrarSesion(ActionEvent event) {
         sesion.cerrarSesion();
         Node source = (Node) event.getSource();
@@ -141,6 +173,9 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         stage.close();
     }
 
+    /**
+     * metodo que inicializa datos para los textos del panel
+     */
     public void inicializarDatos() {
         Usuario usuario = sesion.getUsuario();
 
@@ -160,10 +195,7 @@ public class PanelClienteControlador implements Initializable, IActualizacion {
         cargarTransacciones();
     }
 
-    public void irPanelRecarga(ActionEvent e) {
-        navegarVentana("/recarga.fxml", "Banco - Recargar billetera");
 
-    }
 
     /**
     public void editarNota(ActionEvent e) {

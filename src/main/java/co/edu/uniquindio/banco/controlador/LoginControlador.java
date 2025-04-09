@@ -36,17 +36,19 @@ public class LoginControlador {
 
     private final Sesion sesion = Sesion.getInstancia();
 
-
-
     public LoginControlador(){
         this.banco = Banco.getInstancia(); // Usa el Singleton
     }
 
+    /**
+     * metodo para iniciar sesion
+     * @param e
+     */
     public void iniciarSesion(ActionEvent e){
         String id= txtIdentificacion.getText();
         String contraseña= txtContrasena.getText();
 
-        Usuario usuarioEncontrado = buscarUsuario(id, contraseña);
+        Usuario usuarioEncontrado = banco.buscarUsuario(id);
 
         if(usuarioEncontrado != null){
             mostrarAlerta("Éxito", "inicio de sesión exitoso", Alert.AlertType.INFORMATION);
@@ -61,15 +63,13 @@ public class LoginControlador {
         }
     }
 
-    private Usuario buscarUsuario(String id, String contraseña){
-        for(Usuario usuario : banco.getUsuarios()){
-            if(usuario.getId().equals(id) && usuario.getPassword().equals(contraseña)){
-                return usuario;
-            }
-        }
-        return null;
-    }
 
+    /**
+     * metodo para mostrar una alerta
+     * @param titulo
+     * @param mensaje
+     * @param tipo
+     */
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo){
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
@@ -78,11 +78,19 @@ public class LoginControlador {
         alerta.showAndWait();
     }
 
+    /**
+     * metodo para ir al panel de usuario
+     */
     public void irPanelUsuario() {
         navegarVentana("/panelCliente.fxml", "Banco - Panel Cliente");
 
     }
 
+    /**
+     * metodo para navegar entre ventanas
+     * @param nombreArchivoFxml
+     * @param tituloVentana
+     */
     public void navegarVentana(String nombreArchivoFxml, String tituloVentana) {
         try {
 
@@ -110,12 +118,9 @@ public class LoginControlador {
         }
     }
 
-
-    private void limpiarCampos(){
-        txtIdentificacion.clear();
-        txtContrasena.clear();
-    }
-
+    /**
+     * metodo para cerrar la ventana
+     */
     public void cerrarVentana(){
         Stage stage = (Stage) txtIdentificacion.getScene().getWindow();
         stage.close();

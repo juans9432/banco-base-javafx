@@ -22,7 +22,8 @@ public class Transaccion {
     private String id;
     private float monto;
     private LocalDateTime fecha;
-    private Categoria tipo;
+    private TipoTransaccion tipo;
+    private Categoria categoria;
     private BilleteraVirtual billeteraOrigen, billeteraDestino;
     private float comision;
 }
