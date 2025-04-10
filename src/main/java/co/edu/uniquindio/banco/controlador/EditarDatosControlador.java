@@ -30,10 +30,9 @@ public class EditarDatosControlador {
 
 
     public void initialize() {
-        // Obtener el usuario de la sesión
+
         Usuario usuario = Sesion.getInstancia().getUsuario();
 
-        // Mostrar los datos actuales
         txtIdentificacion.setText(usuario.getId());
         txtNombre.setText(usuario.getNombre());
         txtCorreo.setText(usuario.getEmail());
