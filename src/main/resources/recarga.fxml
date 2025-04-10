@@ -20,8 +20,8 @@
     </GridPane>
 
     <HBox spacing="20" alignment="BOTTOM_CENTER">
-        <Button text="Recargar"  onAction="#recargarBilletera" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
         <Button text="Cancelar"  onAction="#cerrarVentana" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #FF0000; -fx-text-fill: white" />
+        <Button text="Recargar"  onAction="#recargarBilletera" minHeight="40.0" minWidth="130.0" style="-fx-background-color: #00807a; -fx-text-fill: white" />
     </HBox>
 
 
